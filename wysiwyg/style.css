@@ -15,6 +15,7 @@
     margin: 0;
     list-style-type: none;
     border-bottom: 1px solid #590696;
+    background-color: #37E2D5;
 }
 
 .options li:nth-child(4n){
