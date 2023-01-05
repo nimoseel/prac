@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 슬라이드</title>
+
+    <style>
+        @keyframes slide {
+            to{
+                transform: rotateY(360deg);
+            }
+        }
+
+        .background{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 600px; 
+            width: 100vw;
+            height: 70vh;
+            /* perspective 줘서 3d 공간으로 만듦 */
+        }
+
+        .slide{
+            position: relative;
+            top: 20px;
+            width: 300px;
+            transform-style: preserve-3d; 
+            animation: slide 10s infinite linear;
+            /* 3d 효과 보존 */
+        }
+
+        img{
+            position: absolute;
+            width: 300px;
+        }
+
+        img:nth-child(1){
+            transform: rotateY(0deg) translateZ(259px);
+        }
+
+        img:nth-child(2){
+            transform: rotateY(60deg) translateZ(259px);
+        }
+
+        img:nth-child(3){
+            transform: rotateY(120deg) translateZ(259px);
+        }
+
+        img:nth-child(4){
+            transform: rotateY(180deg) translateZ(259px);
+        }
+
+        img:nth-child(5){
+            transform: rotateY(240deg) translateZ(259px);
+        }
+
+        img:nth-child(6){
+            transform: rotateY(300deg) translateZ(259px);
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="slide">
+            <img src="./image/image1.jpg" alt="">
+            <img src="./image/image2.jpg" alt="">
+            <img src="./image/image3.jpg" alt="">
+            <img src="./image/image4.jpg" alt="">
+            <img src="./image/image5.jpg" alt="">
+            <img src="./image/image6.jpg" alt="">
+        </div>
+    </div>
+</body>
+</html> 
