@@ -1,0 +1,91 @@
+*{
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.artcl_main{
+    display: block;
+}
+
+.artcl_main div{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.artcl_main input{
+    flex-grow: 1;
+    font-size: 1.2em;
+    padding: 10px;
+    border: 1px solid gray;
+}
+
+.artcl_main button{
+    flex-shrink: 0;
+    font-size: 1.2em;
+    width: 100px;
+    background-color: white;
+    border: 1px solid gray;
+}
+
+.list_todo{
+    list-style-type: none;
+    padding: 20px;
+    margin: 0;
+    background-color: goldenrod;
+}
+
+.list_todo li{
+    padding: 5px 15px;
+    background-color: whitesmoke;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    color: #222;
+    box-shadow: 5px 5px 5px rgba(50, 50, 50, 0.3);
+}
+
+.list_todo li+li{
+    margin-top: 20px;
+}
+
+.list_todo li button {
+    float: right;
+    padding: 10px;
+    vertical-align: top;
+    border: none;
+    background-color: transparent;
+    color: teal;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.list_todo li button:hover{
+    background-color: tomato;
+}
+
+.btn{
+    display: none;
+    margin-top: 20px;
+    width: 200px;
+    float: right;
+    padding: 10px;
+    cursor: pointer;
+    background-color: teal;
+    color: white;
+    transition: 0.3s;
+    border: none;
+}
+
+.btn:hover{
+    background-color: tomato;
+}
+
+.done{
+    text-decoration: line-through;
+}
+
+strong{
+    margin-bottom: 15px;
+}
+
+

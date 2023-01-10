@@ -8,6 +8,7 @@ const downloadBtn = document.createElement('button');
 downloadBtn.classList.add('btn');
 downloadBtn.textContent = "리스트 다운로드";
 document.body.append(downloadBtn);
+downloadBtn.addEventListener('click', downloadFile);
 
 addBtn.addEventListener('click', createListItem);
 
@@ -121,4 +122,28 @@ function errorMsg(msg){
     message.style.display = 'block';
     message.textContent = msg;
     userTask.focus();
+}
+
+// 할일 목록 다운로드
+function downloadFile(){
+    // 다운로드 받을 텍스트를 생성합니다
+    let temp = '<나의 할일 목록>\n\n';
+
+    const curList = listTodo.querySelectorAll('li');
+    curList.forEach((el)=>{
+        // 완료한 한일 앞에는 '완료'라는 텍스트 붙이기
+        if(el.classList.contains('done')){
+            temp += '완료-';
+        }
+        temp += `${el.textContent}\n`;
+    })
+        let element = document.createElement('a'); 
+        // 나중에 삭제할 예정 -> let으로 선언
+
+        // data URI scheme을 이용해서 데이터를 a안에 임베드 시킨
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + temp); 
+        element.setAttribute('download', 'todoList');
+        element.click();
+        element = null; 
+        //클릭을 했으면 더 이상 존재하지 않아야함 -> null로 만들어서 가비지 컬렉터가 수거 
 }
