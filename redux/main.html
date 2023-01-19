@@ -20,7 +20,7 @@
                 Hello, WEB!
             </header>
             `
-        }
+        };
 
         function TOC(){ //table of content
             let state = store.getState();
@@ -31,14 +31,14 @@
                     <li>
                         <a onclick="
                             event.preventDefault();
-                            let action = {type: 'SELECT', id:${state.contents[i].id}}
+                            let action = {type: 'SELECT', id:${state.contents[i].id}};
                             store.dispatch(action);
                             " href="${state.contents[i].id}">
                             ${state.contents[i].title}
                         </a>
                     </li>`;
                 i = i + 1;
-            }
+            };
             document.querySelector('#toc').innerHTML = `
             <nav>
                 <ol>
@@ -46,7 +46,7 @@
                 </ol>
             </nav>
             `
-        }
+        };
 
         function control(){
             document.querySelector('#control').innerHTML = `
@@ -65,7 +65,7 @@
                     " type="button" value="delete"></li>
             </ul>
             `
-        }
+        };
 
         function article(){
             let state = store.getState();
@@ -104,7 +104,7 @@
                         break;
                     }
                     i = i + 1;
-                }
+                };
                 document.querySelector('#content').innerHTML = `
                 <article>
                     <h2>${aTitle}</h2>
@@ -118,8 +118,8 @@
                     Hello, Redux!!
                 </article>
                 `
-            }
-        }
+            };
+        };
 
         function reducer(state, action){
             if(state === undefined){
@@ -131,24 +131,32 @@
                         {id: 1, title: 'HTML', desc: 'HTML is ...'},
                         {id: 2, title: 'CSS', desc: 'CSS is ...'}
                     ]
-                }
-            }
+                };
+            };
 
             let newState;
             if(action.type === 'SELECT'){
                 newState = Object.assign(
                     {}, 
                     state, 
-                    {selected_id : action.id, mode:'read'});
+                    {
+                        selected_id : action.id, 
+                        mode:'read'
+                    }
+                );
             }else if(action.type === "CREATE"){
                 let newMaxId = state.max_id + 1;
                 let newContents = state.contents.concat(); // concat사용하여 배열 복제
                 newContents.push({id:newMaxId,title:action.title, desc:action.desc});
-                newState = Object.assign({}, state, {
-                    max_id: newMaxId,
-                    contents: newContents,
-                    mode:'read'
-                })
+                newState = Object.assign(
+                    {}, 
+                    state, 
+                    {
+                        max_id: newMaxId,
+                        contents: newContents,
+                        mode:'read'
+                    }
+                );
             }else if(action.type === 'DELETE'){
                 let newContents = [];
                 let i = 0;
@@ -158,25 +166,34 @@
                             state.contents[i]
                         );
                     }
-                    i = i+1;
-                }
-                newState = Object.assign({}, state, {
-                    contents: newContents,
-                    mode:'welcome', // 모드가 welcome이면 state가 바뀐것
-                })
+                    i = i + 1;
+                };
+                newState = Object.assign(
+                    {}, 
+                    state, 
+                    {
+                        contents: newContents,
+                        mode:'welcome', // 모드가 welcome이면 state가 바뀐것
+                    }
+                );
             }else if(action.type === 'CHANGE_MODE'){
-                newState = Object.assign({}, state, {
-                    mode: action.mode
-                })
-            }
-            console.log(action, state, newState)
+                newState = Object.assign(
+                    {}, 
+                    state, 
+                    {
+                        mode: action.mode
+                    }
+                );
+            };
+            console.log(action, state, newState);
             return newState;
-        }
+        };
 
         let store = Redux.createStore(reducer);
         store.subscribe(article);
         store.subscribe(TOC);
-        subject(); // 가독성, 재사용성 높아짐
+
+        subject();
         TOC();
         control();
         article();
