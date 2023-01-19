@@ -22,12 +22,17 @@
             let newState;
             if(action.type === 'CHANGE_COLOR'){
                 newState = Object.assign({}, state, {color: action.color})
-                // state.color = 'red'; 원본 state값을 변경해서 리턴하지 말자, state 값을 복제하고 복제한 복사본을 변경하여 리턴하자 -> 시간여행 undo, redo, 어플리케이션을 예측 가능하게 할 수 있음
+                // state.color = 'red'; 
+                //원본 state값을 변경해서 리턴하지 말고 state 값을 복제하고 복제한 복사본을 변경하여 리턴하자 
+                // -> 시간여행 undo, redo, 어플리케이션을 예측 가능하게 할 수 있음
             }
+            console.log(action.type, action, state, newState)
             return newState;
         }
 
-        let store = Redux.createStore(reducer);
+        let store = Redux.createStore(
+            reducer, 
+            window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
         console.log(store.getState());
 
         function red(){
