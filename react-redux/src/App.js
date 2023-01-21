@@ -9,15 +9,8 @@ state = { number : 0 }
     return (
       <div className="App">
         <h1>Root</h1>
-        <AddNumberRoot 
-          onClick={function(size){
-            this.setState({number:this.state.number + size})}.bind(this)}
-        >
-        </AddNumberRoot>
-        <DisplayNumberRoot 
-          number={this.state.number}
-        >
-        </DisplayNumberRoot>
+        <AddNumberRoot></AddNumberRoot>
+        <DisplayNumberRoot></DisplayNumberRoot>
       </div>
     );
   }
