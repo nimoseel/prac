@@ -29,3 +29,41 @@ function 결혼확률(월소득, 집보유여부, 매력점수) {
     }
     return 점수 >= 600 && "결혼가능";
 }
+var prac = function (a) {
+    return 10;
+};
+var removeZero = function (x) {
+    if (x[0] === "0") {
+        return x.slice(1, x.length - 1);
+    }
+    else {
+        return x;
+    }
+};
+var removeDash = function (x) {
+    return parseInt(x.replace(/-/g, ""));
+};
+var 복잡한함수 = function (x, y, z) {
+    console.log(z(y(x)));
+};
+복잡한함수('010-1111-2222', removeZero, removeDash);
+//연습
+function 최댓값() {
+    var a = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        a[_i] = arguments[_i];
+    }
+    return a.sort(function (a, b) { return b - a; })[0];
+}
+console.log(최댓값(6, 3, 7, 2));
+//
+function 오브젝트파라미터(_a) {
+    var user = _a.user, comment = _a.comment, admin = _a.admin;
+    console.log(user, comment, admin);
+}
+오브젝트파라미터({ user: 'kim', comment: [3, 5, 4], admin: false });
+function 배열파라미터(_a) {
+    var a = _a[0], b = _a[1], c = _a[2];
+    console.log(a, b, c);
+}
+배열파라미터([40, 'wine', false]);
