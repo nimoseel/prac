@@ -1,4 +1,4 @@
-function 함수(x: number) : number{
+function 함수연습(x: number) : number{
     return x * 2;
 }
 //
