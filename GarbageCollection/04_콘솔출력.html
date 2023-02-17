@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <button>btn</button>
+    <script>
+        document.querySelector('button').addEventListener('click', function() {
+            let obj = new Array(1000000)
+    
+            console.log(obj);
+            //만약 브라우저가 우리가 출력하고자 하는 객체의 정보를 저장하지 않는다면 어떻게 매시간 우리가 콘솔 탭을 열었을 때 볼 수 있을까?
+            // 개발 환경일 때 디버그 목적으로 콘솔을 출력할 수 있다. 하지만 실제 환경일 때 가능한 한 콘솔에 데이터를 출력하지 말아야 한다. 그래서 많은 자바스크립트 코딩 스타일 스펙에서는 console.log를 사용하지 않기를 요구하고 있다.
+
+        })
+    </script>
+</body>
+</html>

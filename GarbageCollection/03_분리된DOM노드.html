@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <div id="root">
+        <div class="child001">I am child element</div>
+        <button>remove</button>
+    </div>
+    <script>
+        let btn = document.querySelector('button')
+        let child001 = document.querySelector('.child001')
+        let root = document.querySelector('#root')
+    
+        btn.addEventListener('click', function() {
+            root.removeChild(child001)
+            // 버튼 클릭 후 child001 노드를 제거
+            // 노드 제거 이후에도 전역변수 child001은 아직 해당 노드를 참조하고 있기 때문에 노드의 메모리는 해제되지 않는다.
+        })
+
+
+        // let btn = document.querySelector("button");
+        // btn.addEventListener("click", function () {
+        //     let child001 = document.querySelector(".child001");
+        //     let root = document.querySelector("#root");
+        //     root.removeChild(child001);
+        // });
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <button>start a timer</button>
+    <script>
+
+    function fn1() {
+        let largeObj = new Array(100000)
+
+        setInterval(() => {
+            let myObj = largeObj
+        }, 1000)
+        // setInterval 콜백 함수가 largetObj를 참조하고 타이머가 해제되지 않았기 때문에 largeObj의 메모리가 해제되지 않았다.
+    }
+
+    document.querySelector('button')
+        .addEventListener('click', function() {
+        fn1();
+    })
+</script>
+</body>
+</html>
