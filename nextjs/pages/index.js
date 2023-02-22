@@ -10,7 +10,7 @@ export default function Home(){
             const { results } = await (await fetch(
                 `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`
             )).json();
-                setMovies(results)
+                setMovies(results);
         })();
     },[]);
 
