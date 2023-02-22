@@ -6,6 +6,7 @@ export default function NavBar(){
     return (
         <nav> 
         {/* 페이지가 빌드될 때 next.js가 클래스 이름을 무작위로 바꿔줌*/}
+        <img src="/vercel.svg" />
             <Link href="/">
                 <p className={router.pathname === '/' ? 'active' : ''}>
                 home
@@ -17,12 +18,32 @@ export default function NavBar(){
                 </p>
             </Link>
             <style jsx>{`
-            /* 태그 이름 사용할 수 있으며 클래스 네임을 고려하지 않아도 됨 */
-                .active{
-                    color:red;
+                nav {
+                    display: flex;
+                    gap: 10px;
+                    flex-direction: column;
+                    align-items: center;
+                    padding-top: 20px;
+                    padding-bottom: 10px;
+                    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+                        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
                 }
-
-            `}</style>
+                img {
+                    max-width: 100px;
+                    margin-bottom: 5px;
+                }
+                nav a {
+                    font-weight: 600;
+                    font-size: 18px;
+                }
+                .active {
+                    color: tomato;
+                }
+                nav div {
+                    display: flex;
+                    gap: 10px;
+                }
+        `}</style>
         </nav>
     )
 }
