@@ -5,17 +5,34 @@ import Seo from "@/components/Seo";
 
 export default function Home({results}){
     const router = useRouter();
-    const onClick = (id) => {
-        router.push(`/movies/${id}`);
+    const onClick = (id, title) => {
+        router.push(
+            {
+                pathname : `movies/${id}`,
+                query : {
+                    title, 
+                },
+            },
+            `/movies/${id}`
+        );
     }
     return (
         <div className="container">
             <Seo title='Home'/>
             {results?.map((movie) => (
-                <div onClick={()=>onClick(movie.id)}key={movie.id} className="movie">
+                <div onClick={()=>onClick(movie.id, movie.original_title)}key={movie.id} className="movie">
                     <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
                     <h4>
-                        <Link href={`/movies/${movie.original_title}/${movie.id}`}>
+                        <Link 
+                            href={{
+                                pathname: `/movies/${movie.id}`,
+                                query: {
+                                    title: movie.original_title,
+                                },
+                            }}
+                            as={`/movies/${movie.id}`}
+                            // as는 브라우저의 url을 마스킹함
+                        >
                             {movie.original_title}
                         </Link>
                     </h4>
