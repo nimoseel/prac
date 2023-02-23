@@ -7,16 +7,18 @@ export default function NavBar(){
         <nav> 
         {/* 페이지가 빌드될 때 next.js가 클래스 이름을 무작위로 바꿔줌*/}
         <img src="/vercel.svg" />
+        <div>
             <Link href="/">
-                <p className={router.pathname === '/' ? 'active' : ''}>
+                <span className={router.pathname === '/' ? 'active' : ''}>
                 home
-                </p>
+                </span>
             </Link>
             <Link href="/about">
-                <p className={router.pathname === '/about' ? 'active' : ''}>
+                <span className={router.pathname === '/about' ? 'active' : ''}>
                 about
-                </p>
+                </span>
             </Link>
+        </div>
             <style jsx>{`
                 nav {
                     display: flex;
@@ -32,16 +34,13 @@ export default function NavBar(){
                     max-width: 100px;
                     margin-bottom: 5px;
                 }
-                nav a {
-                    font-weight: 600;
-                    font-size: 18px;
-                }
                 .active {
                     color: tomato;
                 }
                 nav div {
                     display: flex;
                     gap: 10px;
+                    font-weight: 500;
                 }
         `}</style>
         </nav>
