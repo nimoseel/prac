@@ -1,13 +1,18 @@
 
 import Link from "next/link";
-import Seo from "@/components/Seo"
+import { useRouter } from "next/router";
+import Seo from "@/components/Seo";
 
 export default function Home({results}){
+    const router = useRouter();
+    const onClick = (id) => {
+        router.push(`/movies/${id}`);
+    }
     return (
         <div className="container">
             <Seo title='Home'/>
             {results?.map((movie) => (
-                <div key={movie.id} className="movie">
+                <div onClick={()=>onClick(movie.id)}key={movie.id} className="movie">
                     <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
                     <h4>
                         <Link href={`/movies/${movie.original_title}/${movie.id}`}>
@@ -63,3 +68,5 @@ export async function getServerSideProps(){
     }
 }
 // Next.js는 getServerSideProps를 실행시켜서 _app.js의 pageProps에 넣어줌
+
+// 다이나믹 url , url에 변수 넣기 // nextjs에는 라우터가 없음 
