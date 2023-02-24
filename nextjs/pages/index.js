@@ -1,7 +1,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Seo from "@/components/Seo";
+import Seo from "../components/Seo";
 
 export default function Home({results}){
     const router = useRouter();

@@ -3,7 +3,7 @@
 // 페이지나 컴포넌트에 css 임포트 하고 싶다면 모듈.css 사용
 // nextJS는 about, index가 랜더링 되기 전에 먼저 app을 봄 
 
-import Layout from "@/components/Layout";
+import Layout from "../components/Layout";
 import "../styles/globals.css";
 
 export default function App({Component, pageProps}){
