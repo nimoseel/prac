@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Timer</title>
+</head>
+
+<body>
+    <header>
+        <h1 class="title-txt">my timer</h1>
+    </header>
+    <main id="app">
+        <section class="timer">
+            <div class="time-wrapper">
+                <span class="time-span">HOUR</span>
+                <button class="time-btn" id="hour">00</button>
+            </div>
+            <div class="time-wrapper">
+                <span class="time-span">MIN</span>
+                <button class="time-btn" id="min">00</button>
+            </div>
+            <div class="time-wrapper">
+                <span class="time-span">SEC</span>
+                <button class="time-btn" id="sec">00</button>
+            </div>
+        </section>
+        <section class="btn-wapper">
+            <button disabled id="start-btn">
+                <img id="start-img" src="./src/start-disabled.svg" alt="시작버튼">
+            </button>
+            <button disabled id="reset-btn">
+                <img id="reset-img" src="./src/reset-disabled.svg" alt="리셋버튼">
+            </button>
+        </section>
+    </main>
+    <footer>
+        <p class="copyright-txt">copyright 2023. somin Lee. All rights reserved.</p>
+    </footer>
+    <script src="./app.js"></script>
+</body>
+</html>
