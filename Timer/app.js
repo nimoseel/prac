@@ -6,6 +6,7 @@ const resetImg = document.getElementById('reset-img');
 const hourBtn = document.getElementById('hour');
 const minBtn = document.getElementById('min');
 const secBtn = document.getElementById('sec');
+const timeBtns = document.querySelectorAll('.time-btn');
 let TimerControl;
 
 const btnActive = () => {
@@ -24,13 +25,19 @@ const maxTimeAlert = () => {
     }
 }
 
+const checkSingleDigit = () => {
+    for(let i=0; i<timeBtns.length; i++){
+        if(timeBtns[i].textContent.length < 2){
+            timeBtns[i].textContent = '0'+ timeBtns[i].textContent
+        }
+    }
+}
+
 hourBtn.addEventListener('click',()=>{
     if(parseInt(hourBtn.textContent) < 12){
         hourBtn.textContent++;
-        if(hourBtn.textContent < 10){
-            hourBtn.textContent = '0' + hourBtn.textContent;
-        }
     }
+    checkSingleDigit();
     maxTimeAlert();
     btnActive();
 })
@@ -38,13 +45,11 @@ hourBtn.addEventListener('click',()=>{
 minBtn.addEventListener('click',()=>{
     if(parseInt(minBtn.textContent) < 59){
         minBtn.textContent++;
-        if(minBtn.textContent < 10){
-            minBtn.textContent = '0' + minBtn.textContent;
-        }
     }else{
         minBtn.textContent = '00';
         hourBtn.textContent++;
     }
+    checkSingleDigit();
     maxTimeAlert();
     btnActive();
 })
@@ -52,9 +57,6 @@ minBtn.addEventListener('click',()=>{
 secBtn.addEventListener('click',()=>{
     if(parseInt(secBtn.textContent) < 59){
         secBtn.textContent++;
-        if(secBtn.textContent < 10){
-            secBtn.textContent = '0' + secBtn.textContent;
-        }
     }else{
         secBtn.textContent = '00';
         if(parseInt(minBtn.textContent) < 59){
@@ -64,6 +66,7 @@ secBtn.addEventListener('click',()=>{
             hourBtn.textContent++;
         }
     }
+    checkSingleDigit();
     maxTimeAlert();
     btnActive();
 })
@@ -71,31 +74,20 @@ secBtn.addEventListener('click',()=>{
 const operateTimer = () => {
     if(parseInt(secBtn.textContent) > 0){
         secBtn.textContent = parseInt(secBtn.textContent) - 1;
-        if(secBtn.textContent < 10){
-            secBtn.textContent = '0' + secBtn.textContent;
-        }
     }else if(parseInt(secBtn.textContent) === 0){
         if(parseInt(minBtn.textContent) > 0){
             secBtn.textContent = parseInt(59);
             minBtn.textContent = parseInt(minBtn.textContent) - 1;
-            if(minBtn.textContent < 10){
-                minBtn.textContent = '0' + minBtn.textContent;
-            }
         }else if(parseInt(minBtn.textContent) < 1 && parseInt(hourBtn.textContent) > 0){
             hourBtn.textContent = parseInt(hourBtn.textContent) - 1;
             minBtn.textContent = parseInt(59);
             secBtn.textContent = parseInt(59);
-            if(hourBtn.textContent < 10){
-                hourBtn.textContent = '0' + hourBtn.textContent;
-            }
-            if(minBtn.textContent < 10){
-                minBtn.textContent = '0' + minBtn.textContent;
-            }
         }else if(parseInt(minBtn.textContent) < 1 && parseInt(hourBtn.textContent) < 1){
             alert('타이머가 종료되었습니다.');
             btnDisabled();
         }
     }
+    checkSingleDigit();
 }
 
 startBtn.addEventListener('click', ()=>{
