@@ -59,3 +59,29 @@
 
 ### clean 
     - 위젯이 변경되지 않아 추가적인 빌드가 필요하지 않음을 의미
+
+<br/>
+<br/>
+
+## 코드
+```dart
+class HomeScreen extends StatefulWidget {
+    const HomeScreen({Key? key}) : super(key: key);
+    // HomeScreen 클래스의 생성자를 정의하는 코드.
+    // 이 생성자는 선택적인 Key 매개변수를 받으며, 해당 매개변수를 부모 클래스인 StatefulWidget의 생성자에 전달.
+    // super(key: key)는 부모 클래스의 생성자를 호출하여 key 매개변수를 전달하는 역할을 함.
+    // HomeScreen 클래스의 부모 클래스는 StatefulWidget
+
+    @override
+    State<HomeScreen> createState() => _HomeScreenState();
+    // _HomeScreenState 는 HomeScreen 위젯의 상태를 관리하는 클래스로 사용.
+    // StatefulWidget의 createState() 메서드에 의해 생성, 이 메서드는 _HomeScreenState 인스턴스를 반환.
+}
+```
+
+
+const HomeScreen({super.key});
+
+    stful 단축어로 StatefulWidget을 만들면 `const HomeScreen({super.key});` 이렇게 만들어줌. 
+    하지만 생성자에서 super 키워드를 사용할 땐 super 다음에 호출할 부모 클래스의 생성자와 해당 생성자에 전달할 매개변수를 명시해야함.
+    super.key만 작성할 경우 매개변수를 전달하지 않은 부모 클래스의 기본 생성자를 호출하는 것.
