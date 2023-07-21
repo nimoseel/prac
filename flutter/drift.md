@@ -1,7 +1,8 @@
 ## Drift
+- 거의 모든 모바일 애플리케이션에서 사용하는 기본 sqlite 데이터베이스 위에 구축
 - 플러터용 SQL 데이터베이스 플러그인
 
-## 사용법
+## flutter 애플리케이션에서 drift database 사용하는 방법
 ### content.dart 파일
 -  content.dart
 ```dart
@@ -14,7 +15,7 @@ class Content extends Table {
     // 내용
     TextColumn get content => text()();
 
-    // Category Color Table ID
+    // Color Table ID
     IntColumn get colorId => integer()();
 
     // 생성 날짜
@@ -72,8 +73,8 @@ class LocalDatabase extends _$LocalDatabase { // * 3
     // 컬러를 데이터베이스에 넣을 때
     Future<int> createColor(ColorsCompanion data) => into(colors).insert(data);
 
-    Future<List<CategoryColor>> getCategoryColors() =>
-        select(categoryColors).get();
+    Future<List<Color>> getColors() =>
+        select(colors).get();
 
 
     @override // * 5
@@ -91,8 +92,11 @@ LazyDatabase _openConnection() { // * 4
 
 1. `part 'database.g.dart'`
 - `part`는 `import`와 유사하지만 더 넓은 기능을 함, private값까지 불러올 수 있음.
-- 현재파일명 사이에 g 넣어준 것을 part함 (.g -> generate // 자동으로 생성 된다는 뜻)
-- 즉 'database.g.dart' 파일은 아직 존재하지 않지만 후에 특정 커맨드를 실행해 자동으로 생성됨을 의미
+- 현재 파일명 사이에 g 넣어준 것을 part함 (.g -> generate // 자동으로 생성 된다는 뜻)
+- 즉 'database.g.dart' 파일은 아직 존재하지 않지만 후에 *특정 커맨드를 실행해 자동으로 생성됨을 의미
+
+> *특정 커맨드 <br/>
+> flutter pub run builder_runner build
 
 <br/>
 
@@ -106,7 +110,7 @@ LazyDatabase _openConnection() { // * 4
 - 여기서 `_$LocalDatabase`는 나중에 drift가 만들어주는 클래스로 `database.g.dart` 파일 자동 생성될 때<br/> 
 플러터에서 `LocalDatabase`라는 클래스의 이름을 보고서 `_$LocalDatabase`라는 새로운 클래스를 `database.g.dart` 파일 안에다가 만듦
 - `_` 언더스코어가 있기 때문에 private 값, 하지만 불러올 수 있는 것은 import가 아닌 part로 불렀기 때문.
-- _$LocalDatabase 클래스를 상속하면 데이터베이스에 관련된 모든 기능을 사용할 수 있음
+- `_$LocalDatabase` 클래스를 상속하면 데이터베이스에 관련된 모든 기능을 사용할 수 있음
 
 <br/>
 
