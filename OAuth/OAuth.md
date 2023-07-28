@@ -1,12 +1,13 @@
 # OAuth 2.0
-![](https://velog.velcdn.com/images/miniso/post/f893387b-42f6-4629-951b-743ed323bde6/image.png)<br/>
+<image src="https://velog.velcdn.com/images/miniso/post/f893387b-42f6-4629-951b-743ed323bde6/image.png"/>
+
 구글과 같은 플랫폼의 특정한 사용자 데이터에 접근하기 위해 제3자 클라이언트(우리의 서비스)가 사용자의 접근 권한을 위임(Delegated Authorization)받을 수 있는 표준 프로토콜
 
 <br/>
 <br/>
 
 ## 1. OAuth 2.0 주체
-![](https://velog.velcdn.com/images/miniso/post/eb740ede-74e6-4cb4-b9b4-70716f5fc737/image.jpg)
+<image src="https://velog.velcdn.com/images/miniso/post/eb740ede-74e6-4cb4-b9b4-70716f5fc737/image.jpg"/>
 
 ### 1-1. Resource Owner
 - 우리의 서비스를 이용하면서 구글과 같은 플랫폼의 리소스(ex. 캘린더 정보)를 소유하고 있는 유저.
@@ -169,8 +170,7 @@ HTTP 헤더에 Bearer Token을 포함하여 액세스 토큰을 전달.
 <br/>
 
 ## 5. refresh token
-![](https://velog.velcdn.com/images/miniso/post/22d0d90e-049d-461b-8c49-fa10c4f660ca/image.jpg)
-
+<image src="https://velog.velcdn.com/images/miniso/post/22d0d90e-049d-461b-8c49-fa10c4f660ca/image.jpg" />
 
 > 일반적으로 access token은 만료기간이 있으며, 만료되면 더 이상 사용할 수 없다.
 refresh token는 access token보다 더 오래 유효하며 이를 이용하여 access token이 만료되었을 때 refresh token으로 새로운 access token과 새로운 refresh token을 받을 수 있다.
@@ -199,12 +199,13 @@ refresh token는 access token보다 더 오래 유효하며 이를 이용하여 
 <br/>
 
 ## 7. OAuth 2.1
-더 보안적으로 민감한 사용처들의 프로토콜 채택 (금융권 등)
-여러 rfc 보안책들을 하나로 모아 스펙화 시키고 현재 구현에 모범 적용 사례들을 스펙화 시킴
+- 더 보안적으로 민감한 사용처들의 프로토콜 채택 (금융권, 의료계, 증권시장 등)
+- OAuth 1.0 -> 2.0 으로 넘어오면서 클라이언트의 복잡성 해소를 위해 다소 보안을 희생한 trade off 가 있었음
+- 민감한 사용처들이 사용하기엔 보완이 필요했음
+- 여러 RFC 보안책들을 하나로 모아 스펙화 시키고 현재 구현에 모범 적용 사례들을 스펙화 시킴
 
-### OAuth 2.0 보안과 BCP
-
-### OAuth 2.1의 Grant 
+###  7-1. OAuth 2.0 보안과 BCP
+#### 7-1-1. OAuth 2.1의 Grant 
 - 토큰 탈취에 취약한 implicit 배제
 - 유저에게 직접 아이디, 비밀번호 받는 resource owner password credentials 배제 
 
@@ -218,12 +219,53 @@ refresh token는 access token보다 더 오래 유효하며 이를 이용하여 
   ```
   
 <br/>
+
+#### 7-1-2. 중간에 있는 검증값 탈취 문제 해결 위해 PKCE 스펙 추가
+- OAuth 2.0의 Authorizaton code grant에 추가된 PKCE
+- Authorization code flow 시작시 클라이언트가 랜덤값에 대한 hash를 인가 서버에게 보냄, <br/>
+그리고 액세스 토큰 요청을 보낼 때 해당 해쉬값의 원문을 같이보냄<br/>
+-> 첫 요청을 탈취하더라도 해쉬 연산을 역연산을 할 수 없기 때문에 <br/>
+첫 요청을 시작한 클라이언트와 마지막으로 토큰을 발급받고자하는 클라이언트가 동일한 서버임을 확인할 수 있음
+
+
+#### 7-1-3. Refresh Token 개선 - 회전방식
+- 기존의 리프레시 토큰은 access token보다 긴 사용기간을 가지고 있었고,<br/> 
+똑같은 리프레시 토큰을 가지고 새로운 access token을 발급받았다면 
+- 2.1 부터는 refresh token이 일회성이 되어서 refresh token으로 새로운 access token을 발급받으면<br/> 
+기존에 있던 refresh token은 사용할 수 없게되고 새로운 refresh token을 발급받는 *회전방식*을 채택
+
+
+
+#### 7-1-4. 그 외 OAuth 2.1 BCP에 포함된 보안 사항
+- Redirect URI 패턴 매칭 스펙 아웃, 정확한 매칭 강제
+- URI Query String 에서 Bearer token 사용 불가
+- mTLS 또는 DPoP(암호학적으로 토큰을 Client에 종속) 채택
+- 그 외 자주 발생하는 버그들에 대한 보완 스펙
+
+
+## 8. Open ID Connect 인증 계층
+OAuth 2.0에서 토큰을 발급받았던 flow에서 추가적으로 JWT기반의 **ID 토큰**이라는 또다른 토큰을 같이 받을 수 있음 
+
+### 8-1. ID Token
+- 토큰 발급자
+- 토큰 발급 시간
+- 토큰 사용자 (client 식별자)
+- 사용자 식별자
+- 토큰 만료 시간
+
+### 8-2. ID Token 이점
+- OAuth 2.0에서 사용자 정보를 알아보기 위해서는 토큰을 가지고 API call을 해야했었던 것과는 다르게<br/> 
+직접적으로 ID 토큰을 파싱하고 안에 있는 서명값을 검증함으로써 API call을 하지 않고도 사용자에 대한 정보를 가져올 수 있음. <br/>
+- 트래픽이 늘어나는 인터넷 환경에서 Open ID Connect가 2.1스펙보다 먼저 IDP(IDentity Provider)를 구현하는 이유
+- **통신 부하를 줄이기 위해 Open ID connect가 생겼구나-> api call 하지 않으니 !**
+
+
 <br/>
 
-
-[ 참고 자료 ]
-생활코딩 - OAuth 2.0
-https://ko.wikipedia.org/wiki/OAuth
-https://datatracker.ietf.org/doc/html/rfc6749#section-1.2
-https://hudi.blog/oauth-2.0/
-https://www.youtube.com/watch?v=DQFv0AxTEgM
+### [ 참고 자료 ]
+생활코딩 - OAuth 2.0<br/>
+https://ko.wikipedia.org/wiki/OAuth<br/>
+https://datatracker.ietf.org/doc/html/rfc6749#section-1.2<br/>
+https://hudi.blog/oauth-2.0/<br/>
+https://www.youtube.com/watch?v=DQFv0AxTEgM<br/>
+https://www.samsungsds.com/kr/insights/oidc.html<br/>
