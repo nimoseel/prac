@@ -9,6 +9,9 @@
 import 'package:drift/drift.dart';
 
 class Content extends Table {
+  // getter 를 사용하여 column 구현
+  // column이 어떤 타입인지 명시 
+
     //PRIMARY KEY
     IntColumn get id => integer().autoIncrement()();
 
@@ -20,8 +23,9 @@ class Content extends Table {
 
     // 생성 날짜
     DateTimeColumn get createdAt =>
-        dateTime().clientDefault(() => DateTime.now())();
-        // dateTime()는 항상 DateTime.now()가 될 것임을 명시
+        dateTime().clientDefault( // 기본값으로 지정할 값 
+          () => DateTime.now(),
+        )();
 }
 ```
 
@@ -38,7 +42,8 @@ class Colors extends Table{
 }
 ```
 
-> autoIncrement를 이용하여 primary key 자동 생성 가능, 이로써 insert할 때 id를 넣을 필요 사라짐.
+> autoIncrement를 이용하여 primary key 자동 생성 가능, <br/>
+> 이로써 insert할 때 id를 넣을 필요 사라짐.
 
 <br/>
 <br/>
@@ -68,14 +73,18 @@ class LocalDatabase extends _$LocalDatabase { // * 3
     LocalDatabase() : super(_openConnection()); // * 4
 
     // 컨텐츠를 데이터베이스에 넣을 때
-    Future<int> createContent(ContentCompanion data) => into(content).insert(data);
+    Future<int> createContent(ContentCompanion data) => 
+      into(content).insert(data);
+      // into(insert하고 싶은 테이블 이름; 소문자로 작성).insert(넣을 데이터; data)
+      // Future<int> : insert하면 자동으로 id(primary key)값을 리턴받을 수 있음
+      // createContent 함수쓸 땐 ContentCompanion 만들어서 createContent 함수 파라미터 안에 넣으면 됨.
 
     // 컬러를 데이터베이스에 넣을 때
-    Future<int> createColor(ColorsCompanion data) => into(colors).insert(data);
+    Future<int> createColor(ColorsCompanion data) => 
+      into(colors).insert(data);
 
     Future<List<Color>> getColors() =>
-        select(colors).get();
-
+        select(colors).get(); // get() => 해당되는 모든 값들으르 리스트로 받을 수 있음
 
     @override // * 5
     int get schemaVersion => 1;
@@ -101,7 +110,7 @@ LazyDatabase _openConnection() { // * 4
 <br/>
 
 2. `@DriftDatabase`
-- `DrifitDatabase`라는 decorator를 사용하여 어떤 클래스들을 테이블로 쓸지 정해줌
+- `DrifitDatabase`라는 decorator(@override)를 사용하여 어떤 클래스들을 테이블로 쓸지 정해줌
 - 즉 Content, Colors 이 두개의 클래스를 테이블로 쓸 것이라는 걸 drift에게 알려주는 것.
 
 <br/>
@@ -117,10 +126,10 @@ LazyDatabase _openConnection() { // * 4
 4. `_openConnection` 제공
 - LocalDatabase를 만들 때 _openConnection 제공해주어야함 
 - 이는 어떤 위치에서 데이터를 관리할지 명시한 `file` 위치를 가져와서 그 file로 database를 만들라는 것
-- `final dbFolder = await getApplicationDocumentsDirectory()`
-    - dbFolder ;  db를 저장할 폴더
-    - getApplicationDocumentsDirectory() ; 현재 배정받은 폴더 위치
-- `final file = File(p.join(dbFolder.path, 'db.sqlite'))` 
+- LazyDatabase : drift에서 가져옴
+- `final dbFolder = await getApplicationDocumentsDirectory()` 
+    - getApplicationDocumentsDirectory() ; **앱 설치시 os에서 해당 앱 전용으로 사용할 수 있는 폴더의 위치** 가져오는 함수
+- `final file = File(p.join(dbFolder.path, 'db.sqlite'))` // 이 때 `import 'dart:io';`
     - file ; dbFolder에 database 정보 저장할 파일
     - dbFolder.path 데이터베이스를 저장할 경로에 'db.sqlite'라는 파일을 생성한 것.
 - `return NativeDatabase(file)`
