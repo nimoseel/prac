@@ -2,6 +2,7 @@
 #### ListView.builder
 - `itemCount`는 리스트에서 보여줄 `MyCard`의 개수로 아래 코드에선 10으로 설정되어 있기 때문에<br/>
 MyCard가 그려질 때마다 `itemBuilder`가 실행되며(총 10번), 각각 순서에 어떤 위젯을 리턴할지 정할 수 있음.
+- ListView.builder가 아닌 기본 ListView의 children 내부에서 리스트들을 그려낼 경우<br/> SingleChildScrollView처럼 코드 실행되는 순간 위젯들을 전부 렌더링함. 
 
 ```dart
 Expanded(
@@ -39,6 +40,8 @@ Expanded(
         child: ListView.separated(
             itemCount: 2000, 
             separatorBuilder: (context, index) {
+                // item 10개에 하나씩 separated 하고 싶다면 if(index%10 ==0)일때만 리턴
+                // 맨 첫번째 아이템의 인덱스는 0 => index+=1; 처리
                 return SizedBox(height: 12.0);
             },
             itemBuilder: (context, index) {
